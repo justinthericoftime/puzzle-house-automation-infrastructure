@@ -38,6 +38,28 @@ This specification defines the gate logic system for the Composable Development 
 
 ## Specification
 
+### Gate Mapping
+
+```yaml
+gate_mapping:
+  description: "Gates are named by the phase they evaluate"
+  
+  mapping:
+    gate_0: "After Phase 0 (Initialization)"
+    gate_0_5: "After Phase 0.5 (Hardening)"
+    gate_1: "After Phase 1 (Discovery)"
+    gate_2: "After Phase 2 (Synthesis V1) — CRITICAL"
+    gate_3: "After Phase 3 (Stress Test V1)"
+    gate_4: "After Phase 4 (Synthesis V2) — CRITICAL"
+    gate_5: "After Phase 5 (Stress Test V2)"
+    gate_6: "After Phase 6 (Specification) — CRITICAL"
+    gate_7: "After Phase 7 (Build)"
+    gate_8: "After Phase 8 (Retrospective)"
+    
+  critical_gates: [gate_2, gate_4, gate_6]
+  standard_gates: [gate_0, gate_0_5, gate_1, gate_3, gate_5, gate_7, gate_8]
+```
+
 ### Gate Classification
 
 ```yaml

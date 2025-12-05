@@ -430,17 +430,17 @@ retention_policy:
 
   rules:
     recent_runs:
-      scope: "Runs 1-10 (most recent)"
+      scope: "Most recent 10 runs"
       retention: "Keep all checkpoints"
       rationale: "Recent runs likely to need debugging"
 
     older_runs:
-      scope: "Runs 11-50"
+      scope: "Runs 11-50 most recent"
       retention: "Keep final checkpoint only"
       rationale: "Balance storage vs. audit needs"
 
     archive_runs:
-      scope: "Runs 51+"
+      scope: "Runs older than 50 most recent"
       retention: "Keep run summary only (no checkpoints)"
       rationale: "Storage efficiency"
 
@@ -486,7 +486,7 @@ storage_structure:
     checkpoints:
       "{run_id}":
         "index.json": "Checkpoint index for this run"
-        "latest.json": "Most recent checkpoint (symlink or copy)"
+        "latest.json": "Copy of most recent checkpoint (updated after each checkpoint write)"
         "cp_001_phase_complete.json": "First checkpoint"
         "cp_002_gate_decision.json": "Second checkpoint"
         "cp_003_circuit_breaker.json": "Third checkpoint"

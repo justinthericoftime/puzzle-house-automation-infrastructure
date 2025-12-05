@@ -228,7 +228,7 @@ circuit_breakers:
     trigger:
       condition: "Same API fails 3 times consecutively WITHIN THIS RUN"
       detection: "Track per-API failure count; reset count on success"
-      note: "This is within-run tracking, not cross-run"
+      note: "Failure counting is within-run only. The count resets to 0 at the start of each new run."
       evaluation_frequency: "After each API call"
 
     action:
@@ -239,7 +239,8 @@ circuit_breakers:
 
     reset:
       automatic: true
-      reset_on: "Next successful call to this API (in future run)"
+      reset_on: "Start of next run (count resets to 0) OR next successful call within current run"
+      clarification: "The breaker STATE (open/closed) persists to GitHub, but the failure COUNT resets each run."
 
   CB-4:
     id: "CB-4"

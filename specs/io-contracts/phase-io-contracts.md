@@ -54,17 +54,17 @@ universal_metadata:
       type: "string"
       pattern: "phase_{number}_{name}"
       description: "Which phase produced this output"
-      examples:
-        - "phase_0_initialization"
-        - "phase_0.5_hardening"
-        - "phase_1_research"
-        - "phase_2_architecture"
-        - "phase_3_specification"
-        - "phase_4_planning"
-        - "phase_5_implementation"
-        - "phase_6_validation"
-        - "phase_7_build"
-        - "phase_8_synthesis"
+        examples:
+          - "phase_0_initialization"
+          - "phase_0.5_hardening"
+          - "phase_1_discovery"
+          - "phase_2_synthesis_v1"
+          - "phase_3_stress_test_v1"
+          - "phase_4_synthesis_v2"
+          - "phase_5_stress_test_v2"
+          - "phase_6_specification"
+          - "phase_7_build"
+          - "phase_8_retrospective"
 
     timestamp:
       type: "string"
@@ -223,10 +223,10 @@ phase_0_5_hardening:
           type: "boolean"
 ```
 
-#### Phase 1: Research
+#### Phase 1: Discovery
 
 ```yaml
-phase_1_research:
+phase_1_discovery:
   description: "Research and information gathering"
 
   inputs:
@@ -288,11 +288,11 @@ phase_1_research:
           type: "array"
 ```
 
-#### Phase 2: Architecture
+#### Phase 2: Synthesis V1
 
 ```yaml
-phase_2_architecture:
-  description: "System architecture design"
+phase_2_synthesis_v1:
+  description: "First architecture draft"
 
   inputs:
     research_findings:
@@ -348,19 +348,19 @@ phase_2_architecture:
       required: true
 ```
 
-#### Phase 3: Specification
+#### Phase 3: Stress Test V1
 
 ```yaml
-phase_3_specification:
-  description: "Detailed technical specifications"
+phase_3_stress_test_v1:
+  description: "First adversarial review of architecture"
 
   inputs:
     architecture_document:
-      type: "phase_2_architecture.outputs.architecture_document"
+      type: "phase_2_synthesis_v1.outputs.architecture_document"
       required: true
 
     architecture_decisions:
-      type: "phase_2_architecture.outputs.architecture_decisions"
+      type: "phase_2_synthesis_v1.outputs.architecture_decisions"
       required: true
 
   outputs:
@@ -411,15 +411,15 @@ phase_3_specification:
       required: true
 ```
 
-#### Phase 4: Implementation Planning
+#### Phase 4: Synthesis V2
 
 ```yaml
-phase_4_planning:
-  description: "Implementation planning and task breakdown"
+phase_4_synthesis_v2:
+  description: "Revised architecture based on stress test findings"
 
   inputs:
-    specifications:
-      type: "phase_3_specification.outputs.specifications"
+    stress_test_findings:
+      type: "phase_3_stress_test_v1.outputs.stress_test_findings"
       required: true
 
   outputs:
@@ -480,19 +480,19 @@ phase_4_planning:
       required: true
 ```
 
-#### Phase 5: Implementation
+#### Phase 5: Stress Test V2
 
 ```yaml
-phase_5_implementation:
-  description: "Code implementation (pre-build)"
+phase_5_stress_test_v2:
+  description: "Second adversarial review of revised architecture"
 
   inputs:
-    task_breakdown:
-      type: "phase_4_planning.outputs.task_breakdown"
+    revised_architecture:
+      type: "phase_4_synthesis_v2.outputs.revised_architecture"
       required: true
 
-    specifications:
-      type: "phase_3_specification.outputs.specifications"
+    original_stress_findings:
+      type: "phase_3_stress_test_v1.outputs.stress_test_findings"
       required: true
 
   outputs:
@@ -543,15 +543,15 @@ phase_5_implementation:
       required: true
 ```
 
-#### Phase 6: Validation
+#### Phase 6: Specification
 
 ```yaml
-phase_6_validation:
-  description: "Pre-build validation and review"
+phase_6_specification:
+  description: "Technical specifications based on validated architecture"
 
   inputs:
-    implementation_artifacts:
-      type: "phase_5_implementation.outputs.implementation_artifacts"
+    validated_architecture:
+      type: "phase_5_stress_test_v2.outputs.validated_architecture"
       required: true
 
   outputs:
@@ -604,12 +604,12 @@ phase_7_build:
   description: "Build execution (Devin integration)"
 
   inputs:
-    implementation_artifacts:
-      type: "phase_5_implementation.outputs.implementation_artifacts"
+    specifications:
+      type: "phase_6_specification.outputs.specifications"
       required: true
 
     build_readiness:
-      type: "phase_6_validation.outputs.build_readiness"
+      type: "phase_6_specification.outputs.build_readiness"
       required: true
 
   outputs:
@@ -664,11 +664,11 @@ phase_7_build:
           type: "string"
 ```
 
-#### Phase 8: Synthesis
+#### Phase 8: Retrospective
 
 ```yaml
-phase_8_synthesis:
-  description: "Final synthesis and documentation"
+phase_8_retrospective:
+  description: "Lessons learned and run retrospective"
 
   inputs:
     all_phase_outputs:

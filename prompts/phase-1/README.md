@@ -51,3 +51,7 @@ All three meta-prompts have been adversarially reviewed and revised based on cri
 ## Usage
 
 Inject `task_parsed` from Phase 0 into the `task_context` section of each meta-prompt, then execute all three tracks in parallel.
+
+## Related Resources
+
+- **Meta-prompt template:** `knowledge/meta-prompts/templates/meta-prompt-template-v1.0.md` — The structural template used to create these meta-prompts.

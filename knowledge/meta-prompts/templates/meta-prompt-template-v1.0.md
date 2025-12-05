@@ -16,10 +16,12 @@ meta_prompt:
     name: "Descriptive name for this meta-prompt"
     version: "1.0.0"
     module: [research, specification, build, validation, synthesis, extraction]
+    target_tool: "claude | perplexity | chatprd | devin | github"  # V2.1: Target AI tool
     run_id: "${RUN_ID}"  # Injected at runtime, propagated to all outputs
     created_date: "YYYY-MM-DD"
     last_updated: "YYYY-MM-DD"
     author: "Creator name"
+    effectiveness_rating: 0.0  # V2.1: Updated after each use (0.0-1.0)
 
   # CONTEXT (Required)
   context:
@@ -139,39 +141,39 @@ meta_prompt:
 ### 1. Creating a New Meta-Prompt
 
 1. Copy this template
-2. 2. Fill in all required sections
-   3. 3. Assign appropriate ID following naming convention
-      4. 4. Define clear inputs/outputs with types
-         5. 5. Include uncertainty assessment section in output format
-            6. 6. Specify if adversarial pass is enabled
-              
-               7. ### 2. Runtime Injection
-              
-               8. At runtime, the orchestration layer will:
-               9. 1. Generate run_id (UUID) at Phase 0
-                  2. 2. Inject run_id into all meta-prompts
-                     3. 3. Load active lessons (max 30) and inject before main prompt
-                        4. 4. Validate outputs against schema
-                          
-                           5. ### 3. Version Control
-                          
-                           6. - All meta-prompts are stored in `/knowledge/meta-prompts/{module}/`
-                              - - Use semantic versioning (MAJOR.MINOR.PATCH)
-                                - - Document changes in commit messages
-                                  - - Maintain effectiveness ratings after each use
-                                   
-                                    - ---
+2. Fill in all required sections
+3. Assign appropriate ID following naming convention
+4. Define clear inputs/outputs with types
+5. Include uncertainty assessment section in output format
+6. Specify if adversarial pass is enabled
 
-                                    ## Changelog
+### 2. Runtime Injection
 
-                                    | Version | Date | Changes |
-                                    |---------|------|---------|
-                                    | 1.0.0 | 2025-12-06 | Initial V2.1 hardened template with uncertainty assessment, run_id, adversarial pass |
+At runtime, the orchestration layer will:
+1. Generate run_id (UUID) at Phase 0
+2. Inject run_id into all meta-prompts
+3. Load active lessons (max 30) and inject before main prompt
+4. Validate outputs against schema
 
-                                    ---
+### 3. Version Control
 
-                                    ## Related Documents
+- All meta-prompts are stored in `/knowledge/meta-prompts/{module}/`
+- Use semantic versioning (MAJOR.MINOR.PATCH)
+- Document changes in commit messages
+- Maintain effectiveness ratings after each use
 
-                                    - [Gate Logic V2.1](/specs/gates/gate-logic-v2.1.md)
-                                    - - [Phase I/O Contracts](/specs/io-contracts/phase-io-contracts.md)
-                                      - - [Lesson Schema](/knowledge/lessons/_schema.yaml)
+---
+
+## Changelog
+
+| Version | Date | Changes |
+|---------|------|---------|
+| 1.0.0 | 2025-12-06 | Initial V2.1 hardened template with uncertainty assessment, run_id, adversarial pass |
+
+---
+
+## Related Documents
+
+- [Gate Logic V2.1](/specs/gates/gate-logic-v2.1.md)
+- [Phase I/O Contracts](/specs/io-contracts/phase-io-contracts.md)
+- [Lesson Schema](/knowledge/lessons/_schema.yaml)
